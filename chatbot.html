@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AI Health Chatbot</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+body{
+
+background:
+linear-gradient(rgba(0,0,0,0.5),
+rgba(0,0,0,0.5)),
+url('https://images.unsplash.com/photo-1584515933487-779824d29309');
+
+background-size:cover;
+background-position:center;
+
+font-family:Arial;
+
+min-height:100vh;
+
+color:white;
+}
+
+.chat-container{
+
+width:90%;
+max-width:900px;
+
+margin:auto;
+margin-top:40px;
+
+padding:30px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,0.15);
+
+backdrop-filter:blur(10px);
+}
+
+.chat-box{
+
+height:450px;
+
+overflow-y:auto;
+
+padding:20px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,0.1);
+}
+
+.user{
+
+background:#0072ff;
+
+padding:12px;
+
+border-radius:12px;
+
+margin-top:15px;
+
+text-align:right;
+}
+
+.bot{
+
+background:#2ecc71;
+
+padding:12px;
+
+border-radius:12px;
+
+margin-top:15px;
+}
+
+.input-box{
+
+display:flex;
+
+gap:10px;
+
+margin-top:20px;
+}
+
+.form-control{
+
+height:55px;
+
+border:none;
+
+border-radius:12px;
+}
+
+.btn-custom{
+
+padding:12px 20px;
+
+border:none;
+
+border-radius:12px;
+
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+
+color:white;
+
+font-size:18px;
+font-weight:bold;
+}
+
+.back-btn{
+
+position:absolute;
+top:20px;
+left:20px;
+}
+
+.voice-btn{
+
+background:red;
+
+color:white;
+
+border:none;
+
+padding:12px 18px;
+
+border-radius:12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<a href="/dashboard"
+class="btn btn-light back-btn">
+
+⬅ Dashboard
+
+</a>
+
+<div class="chat-container">
+
+<h1 class="text-center">
+🤖 AI Health Assistant
+</h1>
+
+<p class="text-center">
+English | ಕನ್ನಡ | हिंदी
+</p>
+
+<div class="chat-box" id="chatBox">
+
+<div class="bot">
+👋 Hello!
+I am your AI Health Assistant.
+How can I help you?
+</div>
+
+</div>
+
+<div class="input-box">
+
+<input
+type="text"
+id="userInput"
+class="form-control"
+placeholder="Ask health questions...">
+
+<button
+class="voice-btn"
+onclick="startVoice()">
+
+🎤
+
+</button>
+
+<button
+class="btn-custom"
+onclick="sendMessage()">
+
+Send
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function sendMessage(){
+
+let input =
+document.getElementById("userInput");
+
+let message = input.value;
+
+if(message=="") return;
+
+let chatBox =
+document.getElementById("chatBox");
+
+chatBox.innerHTML +=
+`
+<div class="user">
+${message}
+</div>
+`;
+
+let reply = getBotReply(message);
+
+setTimeout(()=>{
+
+chatBox.innerHTML +=
+`
+<div class="bot">
+${reply}
+</div>
+`;
+
+chatBox.scrollTop =
+chatBox.scrollHeight;
+
+speak(reply);
+
+},800);
+
+input.value="";
+}
+
+function getBotReply(message){
+
+message = message.toLowerCase();
+
+if(
+message.includes("fever")
+){
+
+return `
+Possible viral fever.
+Drink water and take rest.
+`;
+
+}
+
+else if(
+message.includes("covid")
+){
+
+return `
+COVID symptoms detected.
+Please isolate and consult doctor.
+`;
+
+}
+
+else if(
+message.includes("pregnancy")
+){
+
+return `
+Pregnant women should take iron,
+protein and proper sleep.
+`;
+
+}
+
+else if(
+message.includes("period")
+){
+
+return `
+Drink warm water,
+eat healthy food
+and take proper rest.
+`;
+
+}
+
+else if(
+message.includes("bp")
+){
+
+return `
+Monitor blood pressure regularly
+and avoid stress.
+`;
+
+}
+
+else if(
+message.includes("diabetes")
+){
+
+return `
+Avoid sugar foods
+and exercise daily.
+`;
+
+}
+
+else if(
+message.includes("heart")
+){
+
+return `
+Heart patients should avoid oily foods
+and consult cardiologist.
+`;
+
+}
+
+else if(
+message.includes("hello")
+){
+
+return `
+Hello 👋
+How are you today?
+`;
+
+}
+
+else if(
+message.includes("namaste")
+){
+
+return `
+नमस्ते 🙏
+मैं आपकी कैसे मदद कर सकती हूँ?
+`;
+
+}
+
+else if(
+message.includes("kannada")
+){
+
+return `
+ನಮಸ್ಕಾರ 🙏
+ನಾನು ನಿಮಗೆ ಆರೋಗ್ಯ ಸಹಾಯ ಮಾಡುತ್ತೇನೆ.
+`;
+
+}
+
+else{
+
+return `
+Please explain your symptoms clearly.
+`;
+
+}
+
+}
+
+function speak(text){
+
+let speech =
+new SpeechSynthesisUtterance();
+
+speech.text = text;
+
+speech.lang = "en-US";
+
+window.speechSynthesis.speak(speech);
+
+}
+
+function startVoice(){
+
+let recognition =
+new webkitSpeechRecognition();
+
+recognition.lang = "en-US";
+
+recognition.start();
+
+recognition.onresult = function(event){
+
+document.getElementById("userInput")
+.value =
+event.results[0][0].transcript;
+
+};
+
+}
+
+</script>
+
+</body>
+</html>

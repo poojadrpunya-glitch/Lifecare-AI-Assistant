@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Women Health Care</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<style>
+
+body{
+
+background:
+linear-gradient(rgba(0,0,0,0.5),
+rgba(0,0,0,0.5)),
+url('https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b');
+
+background-size:cover;
+background-position:center;
+
+font-family:Arial;
+
+min-height:100vh;
+
+color:white;
+}
+
+.container-box{
+
+width:90%;
+max-width:1200px;
+
+margin:auto;
+margin-top:40px;
+
+padding:40px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,0.15);
+
+backdrop-filter:blur(10px);
+}
+
+.card-box{
+
+padding:25px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,0.15);
+
+margin-top:25px;
+}
+
+.form-control{
+
+height:50px;
+
+border:none;
+
+border-radius:10px;
+}
+
+.btn-custom{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:12px;
+
+background:linear-gradient(90deg,#ff4d6d,#ff758f);
+
+color:white;
+
+font-size:18px;
+font-weight:bold;
+}
+
+.back-btn{
+
+position:absolute;
+top:20px;
+left:20px;
+}
+
+.tip-box{
+
+padding:20px;
+
+border-radius:15px;
+
+margin-top:20px;
+
+background:rgba(255,255,255,0.2);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<a href="/dashboard"
+class="btn btn-light back-btn">
+
+⬅ Dashboard
+
+</a>
+
+<div class="container-box">
+
+<h1 class="text-center">
+💖 Women Health Care
+</h1>
+
+<p class="text-center">
+Pregnancy tracking, period care and health monitoring
+</p>
+
+<!-- PERIOD TRACKER -->
+
+<div class="card-box">
+
+<h3>
+🩸 Period Tracker
+</h3>
+
+<form method="post">
+
+<div class="row g-4 mt-2">
+
+<div class="col-md-6">
+
+<label>
+Last Period Date
+</label>
+
+<input
+type="date"
+name="last_period"
+class="form-control"
+required>
+
+</div>
+
+<div class="col-md-6">
+
+<label>
+Cycle Length
+</label>
+
+<input
+type="number"
+name="cycle"
+class="form-control"
+placeholder="28"
+required>
+
+</div>
+
+</div>
+
+<button class="btn-custom mt-4">
+Track Period
+</button>
+
+</form>
+
+{% if next_period %}
+
+<div class="alert alert-light text-dark mt-4">
+
+<h4>
+📅 Next Period:
+{{next_period}}
+</h4>
+
+<h5>
+🌸 Ovulation Date:
+{{fertility}}
+</h5>
+
+</div>
+
+{% endif %}
+
+</div>
+
+<!-- PREGNANCY TRACKER -->
+
+<div class="card-box">
+
+<h3>
+🤰 Pregnancy Tracker
+</h3>
+
+<div class="row mt-4">
+
+<div class="col-md-4">
+
+<div class="tip-box">
+
+<h5>
+🥛 Week 1-12
+</h5>
+
+<p>
+Eat iron-rich foods
+and take folic acid.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="tip-box">
+
+<h5>
+👶 Week 13-24
+</h5>
+
+<p>
+Baby growth starts rapidly.
+Drink more water.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="tip-box">
+
+<h5>
+💖 Week 25-40
+</h5>
+
+<p>
+Take proper rest
+and monitor baby movement.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MOOD TRACKER -->
+
+<div class="card-box">
+
+<h3>
+😊 Mood Tracker
+</h3>
+
+<div class="row mt-4">
+
+<div class="col-md-3">
+
+<div class="alert alert-success text-center">
+😊 Happy
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="alert alert-warning text-center">
+😴 Tired
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="alert alert-danger text-center">
+😢 Stressed
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="alert alert-info text-center">
+😌 Relaxed
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- REMINDERS -->
+
+<div class="card-box">
+
+<h3>
+🔔 Daily Reminders
+</h3>
+
+<div class="row mt-4">
+
+<div class="col-md-3">
+
+<div class="alert alert-info text-center">
+💧 Drink Water
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="alert alert-warning text-center">
+💊 Take Tablets
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="alert alert-success text-center">
+🥗 Healthy Food
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="alert alert-danger text-center">
+🚶 Exercise
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOD SUGGESTIONS -->
+
+<div class="card-box">
+
+<h3>
+🥗 Food Suggestions
+</h3>
+
+<div class="row mt-4">
+
+<div class="col-md-4">
+
+<div class="tip-box">
+
+<h5>
+🤰 Pregnant Women
+</h5>
+
+<ul>
+
+<li>Milk</li>
+<li>Dry Fruits</li>
+<li>Protein Foods</li>
+<li>Vegetables</li>
+<li>Fruits</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="tip-box">
+
+<h5>
+💃 Women Health
+</h5>
+
+<ul>
+
+<li>Iron-rich foods</li>
+<li>Healthy juices</li>
+<li>Fiber foods</li>
+<li>Calcium foods</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="tip-box">
+
+<h5>
+👨 Men Health
+</h5>
+
+<ul>
+
+<li>Protein foods</li>
+<li>Eggs</li>
+<li>Exercise diet</li>
+<li>Low oil foods</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BABY GROWTH -->
+
+<div class="card-box">
+
+<h3>
+👶 Baby Growth Tips
+</h3>
+
+<div class="tip-box">
+
+<p>
+
+✔ Sleep properly during pregnancy  
+✔ Take doctor checkups regularly  
+✔ Eat nutritious foods  
+✔ Avoid stress and heavy work  
+✔ Monitor baby movement regularly  
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

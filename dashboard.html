@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Lifecare Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+
+margin:0;
+padding:0;
+
+font-family:Arial;
+
+background:#eef5ff;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+position:fixed;
+
+width:260px;
+height:100vh;
+
+background:linear-gradient(180deg,#0072ff,#00c6ff);
+
+padding-top:20px;
+
+color:white;
+}
+
+.sidebar h2{
+
+text-align:center;
+margin-bottom:40px;
+}
+
+.sidebar a{
+
+display:block;
+
+padding:15px 25px;
+
+color:white;
+
+text-decoration:none;
+
+font-size:18px;
+
+transition:0.3s;
+}
+
+.sidebar a:hover{
+
+background:rgba(255,255,255,0.2);
+
+padding-left:35px;
+}
+
+/* MAIN */
+
+.main{
+
+margin-left:260px;
+
+padding:30px;
+}
+
+/* TOPBAR */
+
+.topbar{
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:30px;
+}
+
+.topbar h1{
+
+font-weight:bold;
+}
+
+.notification{
+
+position:relative;
+
+font-size:28px;
+
+cursor:pointer;
+}
+
+.badge-custom{
+
+position:absolute;
+
+top:-5px;
+right:-5px;
+
+background:red;
+
+color:white;
+
+font-size:12px;
+
+padding:4px 7px;
+
+border-radius:50%;
+}
+
+/* CARDS */
+
+.card-box{
+
+border:none;
+
+border-radius:20px;
+
+padding:25px;
+
+color:white;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+
+transition:0.3s;
+}
+
+.card-box:hover{
+
+transform:translateY(-5px);
+}
+
+.blue{
+background:linear-gradient(90deg,#0072ff,#00c6ff);
+}
+
+.green{
+background:linear-gradient(90deg,#11998e,#38ef7d);
+}
+
+.orange{
+background:linear-gradient(90deg,#ff9966,#ff5e62);
+}
+
+.purple{
+background:linear-gradient(90deg,#8e2de2,#4a00e0);
+}
+
+/* QUICK ACTIONS */
+
+.quick-btn{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:15px;
+
+margin-top:15px;
+
+font-size:18px;
+
+font-weight:bold;
+
+color:white;
+}
+
+.q1{
+background:#0072ff;
+}
+
+.q2{
+background:#e63946;
+}
+
+.q3{
+background:#2ecc71;
+}
+
+.q4{
+background:#9b5de5;
+}
+
+/* CHATBOT */
+
+.chatbot{
+
+position:fixed;
+
+bottom:30px;
+right:30px;
+
+width:70px;
+height:70px;
+
+border-radius:50%;
+
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+font-size:30px;
+
+color:white;
+
+cursor:pointer;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h2>
+🏥 Lifecare AI
+</h2>
+
+<a href="/dashboard">
+🏠 Dashboard
+</a>
+
+<a href="/prediction">
+🩺 Disease Prediction
+</a>
+
+<a href="/women">
+💖 Women Care
+</a>
+
+<a href="/reminders">
+🔔 Reminders
+</a>
+
+<a href="/history">
+📋 Health History
+</a>
+
+<a href="/emergency">
+🚑 Emergency
+</a>
+
+<a href="/chatbot">
+🤖 AI Chatbot
+</a>
+
+<a href="/book_token">
+🎫 Book Token
+</a>
+
+<a href="/admin_login">
+🛡 Admin Panel
+</a>
+
+<a href="/login">
+🚪 Logout
+</a>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<h1>
+Welcome,
+{{session['user']}}
+</h1>
+
+<div class="notification">
+
+🔔
+
+<span class="badge-custom">
+{{ alerts_count if alerts_count else 0 }}
+</span>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="card mt-4 border-0 shadow">
+
+<div class="card-body text-center">
+
+<h3 class="text-danger">
+🚨 Emergency Help
+</h3>
+
+<p>
+Click SOS if you need immediate assistance.
+</p>
+
+<a href="/emergency">
+
+<button class="btn btn-danger btn-lg">
+
+SOS EMERGENCY
+
+</button>
+
+</a>
+
+</div>
+
+</div>
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="card-box blue">
+
+<h2>
+120/80
+</h2>
+
+<p>
+Blood Pressure
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card-box green">
+
+<h2>
+Fasting[80-100] mg/dL
+After Eating[170-200] mg/dL
+</h2>
+
+<p>
+Sugar Level
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card-box orange">
+
+<h2>
+60-100 bpm
+</h2>
+
+<p>
+Heart Rate
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card-box purple">
+
+<h2>
+85%
+</h2>
+
+<p>
+Health Score
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CHARTS -->
+
+<div class="row mt-5">
+
+<div class="col-md-8">
+
+<div class="card p-4 border-0 rounded-4">
+
+<h4>
+📊 Health Analytics
+</h4>
+
+<canvas id="healthChart"></canvas>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="card p-4 border-0 rounded-4">
+
+<h4>
+⚡ Quick Actions
+</h4>
+
+<a href="/admin_login">
+
+<button class="quick-btn"
+style="background:#ff9800">
+
+🛡 Admin Dashboard
+
+</button>
+
+</a>
+
+<a href="/prediction">
+
+<button class="quick-btn q1">
+Disease Prediction
+</button>
+
+</a>
+
+<a href="/emergency">
+
+<button class="quick-btn q2">
+Emergency SOS
+</button>
+
+</a>
+
+<a href="/reminders">
+
+<button class="quick-btn q3">
+Health Reminders
+</button>
+
+</a>
+
+<a href="/chatbot">
+
+<button class="quick-btn q4">
+AI Assistant
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- HEALTH ARTICLES -->
+
+<div class="card p-4 border-0 rounded-4 mt-5">
+
+<h3>
+📰 Latest Health Articles
+</h3>
+
+<div class="row mt-4">
+
+<div class="col-md-4">
+
+<div class="alert alert-primary">
+
+<h5>
+💧 Importance of Water
+</h5>
+
+<p>
+Drink enough water daily
+for healthy body function.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="alert alert-success">
+
+<h5>
+🥗 Healthy Diet
+</h5>
+
+<p>
+Balanced diet improves immunity
+and overall wellness.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="alert alert-danger">
+
+<h5>
+🏃 Daily Exercise
+</h5>
+
+<p>
+Exercise keeps heart
+and mind healthy.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- INSTAGRAM -->
+
+<div class="card p-4 border-0 rounded-4 mt-5">
+
+<h3>
+📸 Trending Health Pages
+</h3>
+
+<div class="row mt-4">
+
+<div class="col-md-4">
+
+<div class="alert alert-light">
+
+<h5>
+Healthline
+</h5>
+
+<a
+href="https://instagram.com/healthline"
+target="_blank">
+
+Visit Instagram
+
+</a>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="alert alert-light">
+
+<h5>
+WHO
+</h5>
+
+<a
+href="https://instagram.com/who"
+target="_blank">
+
+Visit Instagram
+
+</a>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="alert alert-light">
+
+<h5>
+Medical News Today
+</h5>
+
+<a
+href="https://instagram.com/medicalnewstoday"
+target="_blank">
+
+Visit Instagram
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card p-4 border-0 rounded-4 mt-5">
+
+<h3>
+🛡 Hospital Administration
+</h3>
+
+<p>
+Monitor patients, emergencies,
+ambulance requests and tokens.
+</p>
+
+<a href="/admin_login">
+
+<button class="btn btn-warning">
+
+Open Admin Panel
+
+</button>
+
+</a>
+
+</div>
+
+
+<!-- FLOATING CHATBOT -->
+
+<div
+class="chatbot"
+onclick="window.location.href='/chatbot'">
+
+🤖
+
+</div>
+
+<!-- CHART -->
+
+<script>
+
+const ctx =
+document.getElementById('healthChart');
+
+new Chart(ctx, {
+
+type: 'line',
+
+data: {
+
+labels: [
+'Mon',
+'Tue',
+'Wed',
+'Thu',
+'Fri',
+'Sat',
+'Sun'
+],
+
+datasets: [{
+
+label: 'Health Score',
+
+data: [70,75,72,80,85,82,90],
+
+borderWidth: 3,
+
+fill:true
+
+}]
+
+},
+
+options: {
+
+responsive:true
+
+}
+
+});
+
+</script>
+
+</body>
+</html>

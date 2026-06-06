@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Book Token</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background:#eef5ff;
+}
+
+.box{
+
+max-width:600px;
+margin:auto;
+margin-top:50px;
+
+background:white;
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2 class="text-center">
+
+🎫 Doctor Appointment
+
+</h2>
+
+<form method="POST">
+
+<input
+type="text"
+name="patient"
+class="form-control mb-3"
+placeholder="Patient Name"
+required>
+
+<select
+name="doctor"
+class="form-control mb-3">
+
+<option>
+Dr. Rajesh (Cardiologist)
+</option>
+
+<option>
+Dr. Priya (Gynecologist)
+</option>
+
+<option>
+Dr. Kumar (General Physician)
+</option>
+
+</select>
+
+<select
+name="hospital"
+class="form-control mb-3">
+
+<option>
+Apollo Hospital
+</option>
+
+<option>
+Manipal Hospital
+</option>
+
+<option>
+City Hospital
+</option>
+
+</select>
+
+<input
+type="date"
+name="date"
+class="form-control mb-3"
+required>
+
+<button
+class="btn btn-success w-100">
+
+Book Token
+
+</button>
+
+</form>
+
+<a href="/dashboard"
+class="btn btn-secondary mt-3 w-100">
+
+⬅ Back
+
+</a>
+
+</div>
+
+</body>
+</html>
